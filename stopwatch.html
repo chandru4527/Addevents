@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            background-image: url(./images/Lambo-red.jpg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            font-family: sans-serif;
+            font-weight: bold;
+        }
+
+        .container {
+            height: 250px;
+            width: 299px;
+            background-color: transparent;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid white;
+            font-weight: bold;
+        }
+
+        div h1 {
+            font-size: 40px;
+            color:white;
+        }
+
+        div p {
+            font-size: 40px;
+        }
+
+        .btns {
+            width: 100%;
+            gap: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+        button {
+            height: 35px;
+            width: 60px;
+            font-size: 15px;
+            font-weight: bold;
+            border:none;
+            color: white;
+            border-radius: 5px;
+            background-color: transparent;
+            cursor: pointer;
+        }
+
+        .btns :nth-child(2) {
+            background-color: red;
+        }
+
+        .btns :nth-child(1) {
+            background-color: blue;
+        }
+
+        .btns :nth-child(3) {
+            background-color: green;
+        }
+
+        p {
+            text-shadow: 0 0 20px black;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>STOP WATCH</h1>
+        <p id="watch">00:00:00</p>
+        <div class="btns">
+            <button onclick="start()">start</button>
+            <button onclick="pause()">pause</button>
+            <button onclick="reset()">reset</button>
+        </div>
+    </div>
+
+
+    <script>
+
+        let milisec = 0;
+        let hours = 0 ;
+        let minutes = 0 ;
+        let seconds = 0;
+        let timer = null;
+
+        function start() {
+
+            if(timer) return;
+
+            timer = setInterval(() => {
+                
+                seconds++;
+
+                if(milisec === 1000){
+                    seconds++;
+                }
+                if (seconds === 60){
+                    seconds=0;
+                    minutes++;
+                }
+
+                if(minutes === 60){
+                    minutes = 0;
+                    hours++;
+                }
+
+                document.getElementById("watch").innerText = `${String(hours).padStart(2,'0')}:` +`${String(minutes).padStart(2,'0')}:` + `${String(seconds).padStart(2,'0')}`;
+            }, 1000)
+            
+        }
+
+
+        function pause() {
+            clearInterval(timer);
+            timer = null;
+        }
+
+        function reset() {
+            pause();
+            seconds = minutes = hours = 0;
+            document.getElementById("watch").innerText = "00:00:00";
+        }
+
+
+
+    </script>
+
+</body>
+
+</html>
